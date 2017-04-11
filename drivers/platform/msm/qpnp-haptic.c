@@ -1703,7 +1703,7 @@ static void qpnp_timed_enable_worker(struct work_struct *work)
 }
 
 /* enable interface from timed output class */
-static void qpnp_hap_td_enable(struct timed_output_dev *dev, int value)
+void qpnp_hap_td_enable(struct timed_output_dev *dev, int value)
 {
 	struct qpnp_hap *hap = container_of(dev, struct qpnp_hap,
 					 timed_dev);
@@ -1726,6 +1726,11 @@ static void qpnp_hap_td_enable(struct timed_output_dev *dev, int value)
 		return;
 
 	queue_work(hap->wq, &hap->td_work);
+}
+
+void set_vibrate(int value)
+{
+        qpnp_hap_td_enable(&ghap->timed_dev, value);
 }
 
 /* play pwm bytes */
